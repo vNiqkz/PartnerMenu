@@ -37,8 +37,9 @@ class AdminPartner extends Command{
             case 'remove':
             if(!$args[1]){
             $pname = '';
-            for($i = 1; $i < count($args); $i++){
-                $pname = $pname + $args[$i];
+                for($i = 1; $i < count($args); $i++){
+                    $pname = $pname + $args[$i];
+                }
             }
             Main::DeletePartner($pname);
             break;
@@ -46,6 +47,5 @@ class AdminPartner extends Command{
             $sender->sendMessage('funcion no encontrada');
                 break;
         }
-        
     }
 }
