@@ -3,5 +3,6 @@ v L i q k z:
   decoration: info
   item: iteminfo()
   slot: 0
-
+  #si por votar no das nada solo ponlo null ;) de otro caso pon /partnerAdmin edit (v L i q k z) loot
+  loot: null
   
