@@ -19,6 +19,8 @@ class Main extends PluginBase{
         if($config->exists($pname)){
             return false;
         }
-        $config->set($pname)
+        $config->set($pname, [
+            
+        ])
     }
 }
