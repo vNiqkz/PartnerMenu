@@ -1,5 +1,10 @@
-CommandName: partner
+
 #Normal - Double
 Chest: normal
 Title: "Partner Redeem"
 
+Command:
+  name: Partner
+  descripcion: comando para partners
+  uso: "/partner"
+  aliases: ["p", "pm"]

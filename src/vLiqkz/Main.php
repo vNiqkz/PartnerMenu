@@ -14,7 +14,10 @@ class Main extends PluginBase{
     public function getInstance(): self{
         return self::$instance;
     }
-    public function CreatePartner(String $pname): bool{
+    public function DeletePartner(String $pname): bool{
+        
+    }
+    public static function CreatePartner(String $pname): bool{
         $config = new Config(self::getInstance()->getDataFolder()."partner.yml", Config::YAML);
         if($config->exists($pname)){
             return false;
