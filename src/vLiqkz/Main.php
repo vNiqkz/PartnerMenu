@@ -11,7 +11,9 @@ class self extends PluginBase{
     public function onLoad(): void{
         self::$instance = $this;
         $this->saveDefaultConfig();
-        $this->saveResource("partner.yml")
+        $this->saveResource("partner.yml");
+        $this->saveResource("players.yml");
+        $this->saveResource("votes.yml");
     }
     public function onEnable(): void{
         if(!InvMenuHandler::isRegistered()){
@@ -21,6 +23,7 @@ class self extends PluginBase{
     public function getInstance(): self{
         return self::$instance;
     }
+    
     public static function openMenu($player): bool{
         $config = $this->getConfig()->get("Chest");
         $chest = $config->get("Chest");
