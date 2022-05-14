@@ -4,6 +4,7 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\{Config, TextFormat}
 use libs\muqsit\invmenu\{InvMenuHandler, InvMenu};
 use libs\muqsit\invmenu\type\InvMenuTypeIds;
+use libs\muqsit\invmenu\type\transaction\{InvMenuTransactionResult, InvMenuTransaction};
 class self extends PluginBase{
     protected $instance;
     public $partners = [];
@@ -21,8 +22,10 @@ class self extends PluginBase{
         return self::$instance;
     }
     public static function openMenu($player): bool{
-        $chest = $this->getConfig()->get("Chest");
-        $chestId = ''
+        $config = $this->getConfig()->get("Chest");
+        $chest = $config->get("Chest");
+        $title = $config->get("Title");
+        $chestId = '';
         switch (strlower($chest)) {
             case 'normal':
                 $chestId = InvMenuTypeIds::TYPE_CHEST;
@@ -42,9 +45,37 @@ class self extends PluginBase{
                     $menu->getInventory()->setItem($partner[slot], $partner[item]);
                 }
             }
+            $menu->setName($title);
+            $menu->setListener(function(InvMenuTransaction $transaction) : InvMenuTransactionResult{
+                $player = $transaction->getPlayer();
+                $itemClicked = $transaction->getItemClicked();
+                self::voteForPartner($player->getName(), $itemClicked->getId());
+                return $transaction->continue();
+            });
             return true;
         }
         return false;
+    }
+    public static function voteForPartner($playerName, $itemId){
+       $partner = self::getPartnerByItem($itemId); 
+        if(isset($partners)){
+            $votes = new Config(self::getInstance()->getDataFolder()."votes.yml", Config::YAML);
+            $players = new Config(self::getInstance()->getDataFolder()."players.yml", Config::YAML);
+            $players->set($playerName, $partner);
+            $votes->set($partner, intval($votes->get($partner)) + 1);
+            $players->save();
+            $votes->save();
+            return;
+        }
+    }
+    public static function getPartnerByItem($itemId){
+        $partners = self::getPartnerConfig()->getAll();
+        foreach ($partner as $key => $value) {
+            if(value[item][id] === $itemId){
+                return $key;
+            }
+        }
+        return null;
     }
     public static getPartnerConfig(): Config{
         return new Config(self::getInstance()->getDataFolder()."partner.yml", Config::YAML);
