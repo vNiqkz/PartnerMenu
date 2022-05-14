@@ -74,7 +74,7 @@ class self extends PluginBase{
     public static function getPartnerByItem($itemId){
         $partners = self::getPartnerConfig()->getAll();
         foreach ($partner as $key => $value) {
-            if(value[item][id] === $itemId){
+            if(value["item"]["id"] === $itemId){
                 return $key;
             }
         }
