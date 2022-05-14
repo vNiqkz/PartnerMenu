@@ -17,35 +17,36 @@ class AdminPartner extends Command{
                     $sender->sendMessage('necesitas el nombre del partner para editarlo');
                     return;
                 }
-                
-                $pname = '';
-                for($i = 1; $i < count($args); $i++){
-                    $pname = $pname + $args[$i];
+                $pname = $args[1];
+                if($args[2] === "item"){
+                    $item = $sender->getInventory()->getItemInHand();
+                    $itemJson = $item->jsonSerialize();
+                    Main::editPartner($pname, "item", $itemJson);
+                }else if($args[2] === "reward"){
+
+                }else if($args[2] === "decoration"){
+                    
                 }
-                //code
-                break;
+            break;
             case 'create':
                 if(!$args[1]){
                     $sender->sendMessage('necesitas ponerle un nombre al partner');
+                    return;
                 }
-            $pname = '';
-            for($i = 1; $i < count($args); $i++){
-                $pname = $pname + $args[$i];
-            }
-            Main::CreatePartner($pname);
+                $pname = $args[1];
+                Main::CreatePartner($pname);
             break;
             case 'remove':
-            if(!$args[1]){
-            $pname = '';
-                for($i = 1; $i < count($args); $i++){
-                    $pname = $pname + $args[$i];
+                if(!$args[1]){
+                    $sender->sendMessage('necesitas el nombre del partner para eliminarlo');
+                    return;
                 }
-            }
-            Main::DeletePartner($pname);
+                $pname = $args[1];
+                Main::DeletePartner($pname);
             break;
             default:
-            $sender->sendMessage('funcion no encontrada');
-                break;
+                $sender->sendMessage('funcion no encontrada');
+            break;
         }
     }
 }
