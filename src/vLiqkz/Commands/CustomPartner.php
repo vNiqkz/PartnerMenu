@@ -2,7 +2,7 @@
 use vLiqkz\Main;
 use pocketmine\command\{Command, CommandSender};
 use pocketmine\player\Player;
-class CustomPartner extends {
+class CustomPartner extends Command{
     private $customCommand = Main::getCustomCommand();
     public function __construct(){
         $customCommand = $this->$customCommand();

@@ -15,6 +15,9 @@ class self extends PluginBase{
         $this->saveResource("players.yml");
         $this->saveResource("votes.yml");
     }
+    public static function getCustomCommand(): Array{
+        return $this->getConfig()->get("Command");
+    } 
     public function onEnable(): void{
         if(!InvMenuHandler::isRegistered()){
             InvMenuHandler::register($this);
